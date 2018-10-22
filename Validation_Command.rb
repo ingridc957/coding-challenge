@@ -3,10 +3,12 @@ class ValidationCommand
   # def initialize
   #   @canvas_size = {}
   # end
+
 def canvas_exist
   puts 'you need to create a canvas first' if @figure.nil?
   return(true)
 end
+
   def arguments_number(parameters, number_parameter)
     if (parameters.size != number_parameter)
       puts "Expecting #{number_parameter} parameters you wrote #{parameters.size}"
@@ -42,12 +44,11 @@ def parameters_as_numbers (parameters)
   parameters0 = []
 
   parameters.each do |val|
-    parameters0 <<  eval(val)
+	  parameters0 <<  eval(val)
     end
 
   return(parameters0)
 end
-
 
   def orientation_line(parameters)
     parameters = parameters_as_numbers(parameters)
