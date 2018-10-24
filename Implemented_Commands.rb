@@ -15,10 +15,14 @@ class ImplementedCommands
 		y2 = parameters[3]
 
 		if y1 == y2
-			@canvas.draw[y1][x1..x2]='X'*(x2-x1+1)
+			z1 = [x1, x2].min
+			z2 = [x1, x2].max
+			@canvas.draw[y1][z1..z2]='X'*(z2-z1+1)
 		end
 		if x1 == x2
-			for element in Array(y1..y2)
+			z1 = [y1, y2].min
+			z2 = [y1, y2].max
+			for element in Array(z1..z2)
 				@canvas.draw[element][x1]='X'
 			end
 		end
@@ -40,8 +44,12 @@ class ImplementedCommands
 		self.make_line(line)
 	end
 
+def bucket_fill
+
+end
+
 	def quit
-		puts 'Thanks for use our little paint, have a nice day'
+		$stdout.puts ('You have left the program.' 'Have a nice day.')
 		exit
 	end
 

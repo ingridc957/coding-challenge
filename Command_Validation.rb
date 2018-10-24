@@ -136,7 +136,7 @@ class CommandValidation
 		end
 	end
 
-	def validation_rectangle(command)
+	def validation_rectangle
 		if !self.canvas_exist
 			return(false)
 		elsif !self.arguments_number(4)
@@ -152,8 +152,29 @@ class CommandValidation
 		end
 	end
 
-	def validation_quit(parameters)
-		if parameters.size != 0
+def validation_bucket_fill
+	if !self.canvas_exist
+		return(false)
+	elsif !self.arguments_number(3)
+		return(false)
+	else
+		color = @parameters.last
+		@parameters.slice!(-1)
+	end
+	if !self.arguments_integer
+		return(false)
+	elsif !self.arguments_positive
+		return(false)
+	elsif !self.inside_canvas
+		return(false)
+	else
+		return(true)
+	end
+
+end
+
+	def validation_quit
+		if @parameters.size != 0
 			puts 'if you want to close the program, ingress Q'
 			return(false)
 		else

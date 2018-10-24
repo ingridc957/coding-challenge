@@ -41,15 +41,20 @@ class User_Input
 				@canvas.print_draw
 			end
 		when 'R'
-			if validation_object.validation_rectangle(@parameters)
+			if validation_object.validation_rectangle
 				self.parameters_as_numbers
 				implemented_object.make_rectangle(@parameters)
 				@canvas.print_draw
 			end
-			# # when 'B'
-			# ValidationCommand.new.validation_bucket_fill(command)
+		when 'B'
+			validation_object.validation_bucket_fill
+			# if	validation_object.validation_bucket_fill
+			# 	self.parameters_as_numbers
+			# 	implemented_object.bucket_fill(@parameters)
+			# 	@canvas.print_draw
+			# end
 		when 'Q'
-			if validation_object.validation_quit(@parameters)
+			if validation_object.validation_quit
 				implemented_object.quit
 			end
 		else puts 'it is not an implemented command'
