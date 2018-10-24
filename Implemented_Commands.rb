@@ -1,40 +1,48 @@
 class ImplementedCommands
-def initialize
-  # @draw = []
-  @canvas_size
-end
+	def initialize(canvas_object)
+		@canvas = canvas_object
+	end
 
-  def interpreter(command)
-    puts "contenido del canvas a la primera llamada de C#{@canvas_size}"
-    tool = command.split[0]
-    parameters = command.split.drop(1)
-    case tool
-      when 'C'
-        #Supongo que si el comando es valido se guardan los parametros en @canvas_size
-        #lo meto como parametro para validar, si ya hay un canvas que no se reescriba
-      @canvas_size = ValidationCommand.new.validation_canvas(@canvas_size, parameters)
-      puts "puts in the case C print canvas_size#{@canvas_size}"
-      # Si el comando es valido aquí se llama al método para implementarlo
-      when 'L'
-      validation_result =  ValidationCommand.new.validation_line(parameters)
-      when 'R'
-        validation_result = ValidationCommand.new.validation_rectangle(parameters)
-      # # when 'B'
-      # ValidationCommand.new.validation_bucket_fill(command)
-      when 'Q'
-        ValidationCommand.new.validation_quit(tool, parameters)
-      else puts 'it is not an implemented command'
-    end
-  end
+	def set_canvas (parameters)
+		@canvas.set_canvas_size({width: parameters[0], height: parameters[1]})
+		puts "The size canvas was set as: \n #{@canvas.canvas_size}"
+	end
 
-# def canvas()
-#
-#
-# end
+	def make_line (parameters)
+		x1 = parameters[0]
+		y1 = parameters[1]
+		x2 = parameters[2]
+		y2 = parameters[3]
 
-def quit
-  puts 'Thanks for use our little paint, have a nice day'
-  exit
-end
+		if y1 == y2
+			@canvas.draw[y1][x1..x2]='X'*(x2-x1+1)
+		end
+		if x1 == x2
+			for element in Array(y1..y2)
+				@canvas.draw[element][x1]='X'
+			end
+		end
+		@canvas.modify_drawing(@canvas.draw)
+	end
+
+	def make_rectangle(parameters)
+		line = Array.new(parameters)
+		line[2] = line[0]
+		self.make_line(line)
+		line = Array.new(parameters)
+		line[0] = line[2]
+		self.make_line(line)
+		line = Array.new(parameters)
+		line[1] = line[3]
+		self.make_line(line)
+		line = Array.new(parameters)
+		line[3] = line[1]
+		self.make_line(line)
+	end
+
+	def quit
+		puts 'Thanks for use our little paint, have a nice day'
+		exit
+	end
 
 end
